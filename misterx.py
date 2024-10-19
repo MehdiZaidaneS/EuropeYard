@@ -22,7 +22,7 @@ def mxbusmovement():
     if ncountrylist:
         index = random.randint(0, len(ncountrylist) - 1)
         mxcurrentLocation = ncountrylist[index]
-        print("Mister X used: Bus")
+        print("- Mister X used: Bus")
     else:
         mxboatmovement()
 
@@ -36,7 +36,7 @@ def mxboatmovement():
     if sharedsealist:
         index = random.randint(0, len(sharedsealist) - 1)
         mxcurrentLocation = sharedsealist[index]
-        print("Mister X used: Boat")
+        print("- Mister X used: Boat")
     else:
         mxbusmovement()
 
@@ -48,7 +48,7 @@ def mxplanemovement():
 
     index = random.randint(0, len(planedestinations) - 1)
     mxcurrentLocation = planedestinations[index]
-    print("Mister X used: Plane")
+    print("- Mister X used: Plane")
 
 
 
@@ -58,7 +58,7 @@ def xrandommove():
     global turns
 
     if turns % 3 == 0:
-        print("Mister X is in " + mxcurrentLocation)
+        print("- Mister X is in " + mxcurrentLocation)
     if chance > 2:
         mxbusmovement()
         turns = turns + 1

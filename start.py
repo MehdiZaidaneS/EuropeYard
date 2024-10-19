@@ -1,25 +1,27 @@
+import player
 from player import *
 from misterx import *
 from instructions import *
 
 
 
+def game():
+    mxspawnpoint()
+    spawnpoint()
+    while player.turns > 0:
+        xrandommove()
+        moves()
+        if mxpositionreveal() == positionReveal():
+            print("Congratulations, you caught Mister X")
+            break
+
 
 def start():
 
-    print("Welcome to European Yard! Choose one to continue:\n"
-          "['Play', 'Instructions', 'Exit']")
+    option = input("Welcome to European Yard! Choose one to continue: ['Play', 'Instructions', 'Exit']\n")
 
-    option = input()
     if option == 'Play':
-        mxspawnpoint()
-        spawnpoint()
-        while turns > 0:
-            xrandommove()
-            moves()
-            if mxpositionreveal() == positionReveal():
-                print("Congratulations, you caught Mister X")
-                break
+        game()
 
     elif option == 'Instructions':
         aboutgame()

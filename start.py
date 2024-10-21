@@ -5,30 +5,45 @@ from instructions import *
 
 
 
+## Logic of the game
 def game():
-    mxspawnpoint()
-    spawnpoint()
+    mxspawnpoint() ## MisterX spawns randomly.
+    spawnpoint() ## Player spawns randomly.
+    ## While player has turns, Mister X and the player move, until player location is the same as Mister X.
     while player.turns > 0:
         xrandommove()
         moves()
-        if mxpositionreveal() == positionReveal():
-            print("Congratulations, you caught Mister X")
+        if mxpositionreveal() == player.currentLocation:
+            print("Congratulations, you caught Mister X!")
             break
+        positionReveal()
 
 
 def start():
 
-    option = input("Welcome to European Yard! Choose one to continue: ['Play', 'Instructions', 'Exit']\n")
+    print("Welcome to European Yard!")
+    option = "".lower()
 
-    if option == 'Play':
-        game()
+    ## While player doesn't game will show the initial menu.
+    while option != "play":
+      option = input("Choose one to continue: ['Play', 'Instructions', 'Exit']\n").lower()
 
-    elif option == 'Instructions':
+      ## Prints the text about game and the rules
+      if option == 'instructions':
         aboutgame()
         rules()
-
-    elif option == 'Exit':
+      ## Game starts
+      elif option == 'play':
+          game()
+          break
+      ## Game ends
+      elif option == 'exit':
         print("Thank you for playing!")
+        break
+      ## Error message in case the input doesn't exist
+      else:
+        print("Invalid input!")
+
 
 
 

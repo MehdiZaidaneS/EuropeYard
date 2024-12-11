@@ -8,10 +8,10 @@ app = Flask(__name__)
 CORS(app)
 
 
-@app.route('/getcountry/')
+@app.route('/getcountry/') ##End point to get ONE country.
 def getcountry():
     try:
-        response = {
+        response = { ##Save as response, returned value from the "get one country" function from database class.
             "country": database.getOneCountry()
         }
         return response
@@ -25,10 +25,10 @@ def getcountry():
         return http_response
 
 
-@app.route('/getallcountries/')
+@app.route('/getallcountries/') ##End point to get all countries of the game.
 def getallcountries():
     try:
-        response = database.getAllCountries()
+        response = database.getAllCountries() ##Save as response, returned value from the "get all countries" function from database class.
         return response
 
     except ValueError:
@@ -41,10 +41,10 @@ def getallcountries():
         return http_response
 
 
-@app.route("/busdestinations/<location>")
+@app.route("/busdestinations/<location>") ##End point for bus destinations
 def getneighbourcountries(location):
     try:
-        response = database.neighbourcountries(location)
+        response = database.neighbourcountries(location) ##Save as response, returned value from the "bus destinations" function from database class.
         return response
 
     except ValueError:
@@ -57,10 +57,10 @@ def getneighbourcountries(location):
         return http_response
 
 
-@app.route("/boatdestinations/<location>")
+@app.route("/boatdestinations/<location>") ##End point for boat destinations
 def getsamesea(location):
     try:
-        response = database.countrysea(location)
+        response = database.countrysea(location) ##Save as response, returned value from the "boat destinations" function from database class.
         return response
     except ValueError:
         response = {
@@ -72,10 +72,10 @@ def getsamesea(location):
         return http_response
 
 
-@app.route("/planedestinations/<location>")
+@app.route("/planedestinations/<location>") ##End point for plane destinations.
 def getplanedestinations(location):
     try:
-        response = database.flydestination(location)
+        response = database.flydestination(location) ##Save as response, returned value from the "fly destination" function from database class.
         return response
     except ValueError:
         response = {
@@ -86,6 +86,17 @@ def getplanedestinations(location):
         http_response = Response(response=json_response, status=400, mimetype="application/json")
         return http_response
 
+
+
+@app.errorhandler(404)  ## Error message in case of invalid endpoint
+def page_not_found(error_code):
+    response = {
+        "message": "Invalid endpoint",
+        "status": 404
+    }
+    json_response = json.dumps(response)
+    http_response = Response(response=json_response, status=404, mimetype="application/json")
+    return http_response
 
 if __name__ == '__main__':
     app.run(use_reloader=True, host='127.0.0.1', port=5000)

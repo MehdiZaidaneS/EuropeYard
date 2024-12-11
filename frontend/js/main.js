@@ -1,60 +1,136 @@
 "use strict"
 
-let myLocation = ""
+let playerLocation = ""
+let busTickets = 10;
+let boatTickets = 5;
+let planeTickets = 1;
 
 
+// Set starter location for the player.
 async function getLocation() {
-    const response = await apiCall("getcountry", "")
+    const response = await apiCall("getcountry", "")// Fetches the result from the api call to "get country" endpoint.
+
+    // update my location text
+    updatePlayerLocationText(response["country"])
+    // Update my current marker.
+    await updatePlayerLocationMarker(response["country"])
+
+    console.log("My random location was " + playerLocation)
+
+}
+
+// Updates player location text in HTML.
+function updatePlayerLocationText(location) {
     const span = document.querySelector("#mylocation")
-    span.innerHTML = response["country"]
-    myLocation = response["country"]
-    console.log("My random location was " + myLocation)
-    if (myLocation === "Russia") {
+    span.innerHTML = location
+}
+
+// Update player marker on the map. (Russia and Ireland gives wrong lat and lon, so I set them manually)
+async function updatePlayerLocationMarker(location) {
+    playerLocation = location
+    if (playerLocation === "Russia") {
         L.marker([54.96, 35.47]).addTo(markerGroup)
-    } else if (myLocation === "Ireland") {
+    } else if (playerLocation === "Ireland") {
         L.marker([53.58, -8.11]).addTo(markerGroup)
     } else {
-        const url = `https://restcountries.com/v3.1/name/${myLocation}`
+        const url = `https://restcountries.com/v3.1/name/${playerLocation}` //API to get countries LAT and LONG
         try {
             const response = await fetch(url);
             const json_data = await response.json();
-            const latlng = json_data[0]["latlng"]
-            L.marker(latlng).addTo(markerGroup)
+            const latlng = json_data[0]["latlng"] //Saves the lat and long fetched.
+            L.marker(latlng).addTo(markerGroup) //Added marker in the location.
         } catch (error) {
             console.log("error.message")
         }
-        return response["country"]
+
     }
 }
 
-async function updateMyLocation(location) {
-    myLocation = location
-    if (myLocation === misterLocation) {
+// Function that checks if player is in same position as MisterX. In case of that WIN.
+function playerPosition(location) {
+    if (location === misterLocation) {
         const h1 = document.querySelector("#victory")
-        h1.innerHTML = "Victoria!!!!!"
+        h1.innerHTML = "Victoria!"
     } else {
-        const span = document.querySelector("#mylocation")
-        span.innerHTML = location
-        markerGroup.clearLayers()
-        if (myLocation === "Russia") {
-            L.marker([54.96, 35.47]).addTo(markerGroup)
-        } else if (myLocation === "Ireland") {
-            L.marker([53.58, -8.11]).addTo(markerGroup)
+        //Game continues
+        console.log("You didnt catch Mister X this time.")
+    }
+}
+
+// IMPORTANT function of movement of player.
+function moveTo(vehicleTicket, vehicle, destination) {
+    if (vehicleTicket > 0) {
+        markerGroup.clearLayers() // Clear all the marks on the map.
+        updateTickets(vehicle) //Updates the tickets according to the vehicle using.
+        updatePlayerLocationMarker(destination) //Updates the location marker of the player
+        updatePlayerLocationText(destination) //Updates the text of the location of the player.
+        randomMove() //Mister X moves always after player moves.
+    } else {
+        console.log("You dont have enough tickets") //You cant move, if you don't have enough tickets
+    }
+}
+
+//Checks what vehicle is updating. And then takes one ticket away and updates the text of tickets left.
+function updateTickets(vehicle) {
+    if (vehicle === "Bus") {
+        busTickets -= 1;
+        const span = document.querySelector("#busTickets")
+        span.innerHTML = "Left: " + busTickets
+    } else if (vehicle === "Boat") {
+        boatTickets -= 1;
+        const span = document.querySelector("#boatTickets")
+        span.innerHTML = "Left: " + boatTickets
+    } else {
+        planeTickets -= 1;
+        const span = document.querySelector("#planeTickets")
+        span.innerHTML = "Left: " + planeTickets
+    }
+}
+
+//Mark all the possible destinations on the map.
+async function markPossibleDestinations(destinations, icon, vehicleTicket, vehicle) {
+    for (let destination of destinations) {
+        if (destination === "Russia") {
+            L.marker([54.96, 35.47]).addTo(markerGroup).setIcon(icon).on("click", function (e){
+                moveTo(vehicleTicket,vehicle,destination) //When the marker it is clicked
+            })
+        } else if (destination === "Ireland") {
+            L.marker([53.58, -8.11]).addTo(markerGroup).setIcon(icon).on("click", function (e){
+                moveTo(vehicleTicket,vehicle,destination)
+            })
         } else {
-            const url = `https://restcountries.com/v3.1/name/${myLocation}`
+            const url = `https://restcountries.com/v3.1/name/${destination}`
             try {
                 const response = await fetch(url);
                 const json_data = await response.json();
                 const latlng = json_data[0]["latlng"]
-                L.marker(latlng).addTo(markerGroup)
+                L.marker(latlng).addTo(markerGroup).setIcon(icon).on("click", function (e){
+                moveTo(vehicleTicket,vehicle,destination)
+            })
             } catch (error) {
                 console.log("error.message")
             }
         }
-
-        randomMove()
     }
+}
 
+
+// Player bus movement function
+async function busDestinations(location) {
+    const response = await apiCall("busdestinations", location)
+    await markPossibleDestinations(response,greenIcon, busTickets, "Bus")
+}
+
+// Player boat movement function.
+async function boatDestinations(location) {
+    const response = await apiCall("boatdestinations", location)
+    await markPossibleDestinations(response, blueIcon, boatTickets, "Boat")
+}
+
+// Player plane movement function
+async function planeDestinations(location) {
+    const response = await apiCall("planedestinations", location)
+    await markPossibleDestinations(response,yellowIcon, planeTickets, "Plane")
 
 }
 
@@ -65,136 +141,20 @@ for (let button of buttons) {
         evt.preventDefault();
         if (button.innerHTML === "Bus") {
             console.log("i pressed bus")
-            busdestinations(myLocation)
+            busDestinations(playerLocation)
         } else if (button.innerHTML === "Boat") {
             console.log("i pressed boat")
-            boatdestinations(myLocation)
+            boatDestinations(playerLocation)
         } else {
             console.log("i pressed plane")
-            planedestinations(myLocation)
+            planeDestinations(playerLocation)
         }
 
     })
 }
 
-async function busdestinations(location) {
-    const response = await apiCall("busdestinations", location)
-    for (let option of response) {
-        if (option === "Russia") {
-            L.marker([54.96, 35.47]).addTo(markerGroup).setIcon(greenIcon).on("click", function (e) {
-                updateMyLocation(option)
-            })
-        } else if (option === "Ireland") {
-            L.marker([53.58, -8.11]).addTo(markerGroup).setIcon(greenIcon).on("click", function (e) {
-                updateMyLocation(option)
-            })
-        } else {
-            const url = `https://restcountries.com/v3.1/name/${option}`
-            try {
-                const response = await fetch(url);
-                const json_data = await response.json();
-                const latlng = json_data[0]["latlng"]
-                L.marker(latlng).addTo(markerGroup).setIcon(greenIcon).on("click", function (e) {
-                    updateMyLocation(option)
-                })
-            } catch (error) {
-                console.log("error.message")
-            }
-        }
 
-    }
-}
-
-async function boatdestinations(location) {
-    const response = await apiCall("boatdestinations", location)
-    for (let country of response) {
-        if (country === "Russia") {
-            L.marker([54.96, 35.47]).addTo(markerGroup).setIcon(blueIcon).on("click", function (e) {
-                updateMyLocation(country)
-            })
-        } else if (country === "Ireland") {
-            L.marker([53.58, -8.11]).addTo(markerGroup).setIcon(blueIcon).on("click", function (e) {
-                updateMyLocation(country)
-            })
-        } else {
-            const url = `https://restcountries.com/v3.1/name/${country}`
-            try {
-                const response = await fetch(url);
-                const json_data = await response.json();
-                const latlng = json_data[0]["latlng"]
-                L.marker(latlng).addTo(markerGroup).setIcon(blueIcon).on("click", function (e) {
-                    updateMyLocation(country)
-                })
-            } catch (error) {
-                console.log("error.message")
-            }
-        }
-
-    }
-}
-
-async function planedestinations(location) {
-    const response = await apiCall("planedestinations", location)
-    for (let destination of response) {
-        if (destination === "Russia") {
-            L.marker([54.96, 35.47]).addTo(markerGroup).setIcon(yellowIcon).on("click", function (e) {
-                updateMyLocation(destination)
-            })
-        } else if (destination === "Ireland") {
-            L.marker([53.58, -8.11]).addTo(markerGroup).setIcon(yellowIcon).on("click", function (e) {
-                updateMyLocation(destination)
-            })
-        } else {
-            const url = `https://restcountries.com/v3.1/name/${destination}`
-            try {
-                const response = await fetch(url);
-                const json_data = await response.json();
-                const latlng = json_data[0]["latlng"]
-                L.marker(latlng).addTo(markerGroup).setIcon(yellowIcon).on("click", function (e) {
-                    updateMyLocation(destination)
-                })
-            } catch (error) {
-                console.log("error.message")
-            }
-        }
-    }
-
-}
-
-
-async function getAllCountry() {
-    let countries = []
-
-    const response = await apiCall("getallcountries", "")
-    for (let country of response) {
-        countries.push(country)
-    }
-    return countries
-}
-
-async function getCords() {
-    const countries = await getAllCountry()
-    for (let country of countries) {
-        if (country === "Russia") {
-            L.marker([54.96, 35.47]).addTo(map).setIcon(grayIcon)
-        } else if (country === "Ireland") {
-            L.marker([53.58, -8.11]).addTo(map).setIcon(grayIcon)
-        } else {
-            const url = `https://restcountries.com/v3.1/name/${country}`
-            try {
-                const response = await fetch(url);
-                const json_data = await response.json();
-                const latlng = json_data[0]["latlng"]
-                L.marker(latlng).addTo(map).setIcon(grayIcon)
-            } catch (error) {
-                console.log("error.message")
-            }
-
-        }
-
-    }
-}
-
+// Starting function
 async function start() {
     await getLocation()
     await getMisterXLocation()

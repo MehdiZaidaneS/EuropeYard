@@ -8,9 +8,6 @@
     <script src="js/map.js" defer></script>
     <script src="js/main.js" defer></script>
     <script src="js/misterx.js" defer></script>
-
-
-
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
      integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY="
      crossorigin=""/>
@@ -25,16 +22,16 @@
             <h1>Player</h1>
              <h1 id="victory"></h1>
             <h2>Location: <span id="mylocation">Unknown</span></h2>
-            <button class="vehicle">Bus</button>
-            <button class="vehicle">Boat</button>
-            <button class="vehicle">Plane</button>
+            <button class="vehicle">Bus</button><span id="busTickets">Left: 10</span>
+            <button class="vehicle">Boat</button><span id="boatTickets">Left: 5</span>
+            <button class="vehicle">Plane</button><span id="planeTickets">Left: 1</span>
         </div>
         <div id="map">
 
         </div>
-        <div class="misterx-board">
-            <h1>Misterx</h1>
-            <h2>Location: <span id="misterXlocation">Unknown</span></h2>
+        <div class="misterX-board">
+            <h1>MisterX</h1>
+            <h2>Location: <span id="misterXLocation">Unknown</span></h2>
         </div>
     </div>
 </body>

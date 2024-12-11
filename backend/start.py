@@ -1,4 +1,3 @@
-import player
 from player import *
 from misterx import *
 from instructions import *

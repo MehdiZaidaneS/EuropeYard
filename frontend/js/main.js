@@ -2,17 +2,6 @@
 
 let myLocation = ""
 
-/*
-async function getData(url){
-    const response = await fetch(url)
-    if (!response.ok) throw new Error ('Invalid server input!')
-    const data = await response.json()
-    document.querySelector("#name").innerHTML = data;
-    return data
-}
-const data = getData("http://127.0.0.1:5000/getcountry")
-*/
-
 
 async function getLocation() {
     const response = await apiCall("getcountry", "")
@@ -20,27 +9,9 @@ async function getLocation() {
     span.innerHTML = response["country"]
     myLocation = response["country"]
     console.log("My random location was " + myLocation)
-    const url = `https://restcountries.com/v3.1/name/${myLocation}`
-    try {
-        const response = await fetch(url);
-        const json_data = await response.json();
-        const latlng = json_data[0]["latlng"]
-        L.marker(latlng).addTo(markerGroup)
-    } catch (error) {
-        console.log("error.message")
-    }
-    return response["country"]
-}
-
-async function updateMyLocation(location) {
-    myLocation = location
-    const span = document.querySelector("#mylocation")
-    span.innerHTML = location
-    markerGroup.clearLayers()
-
-    if (location === "Russia") {
+    if (myLocation === "Russia") {
         L.marker([54.96, 35.47]).addTo(markerGroup)
-    } else if (location === "Ireland") {
+    } else if (myLocation === "Ireland") {
         L.marker([53.58, -8.11]).addTo(markerGroup)
     } else {
         const url = `https://restcountries.com/v3.1/name/${myLocation}`
@@ -52,6 +23,36 @@ async function updateMyLocation(location) {
         } catch (error) {
             console.log("error.message")
         }
+        return response["country"]
+    }
+}
+
+async function updateMyLocation(location) {
+    myLocation = location
+    if (myLocation === misterLocation) {
+        const h1 = document.querySelector("#victory")
+        h1.innerHTML = "Victoria!!!!!"
+    } else {
+        const span = document.querySelector("#mylocation")
+        span.innerHTML = location
+        markerGroup.clearLayers()
+        if (myLocation === "Russia") {
+            L.marker([54.96, 35.47]).addTo(markerGroup)
+        } else if (myLocation === "Ireland") {
+            L.marker([53.58, -8.11]).addTo(markerGroup)
+        } else {
+            const url = `https://restcountries.com/v3.1/name/${myLocation}`
+            try {
+                const response = await fetch(url);
+                const json_data = await response.json();
+                const latlng = json_data[0]["latlng"]
+                L.marker(latlng).addTo(markerGroup)
+            } catch (error) {
+                console.log("error.message")
+            }
+        }
+
+        randomMove()
     }
 
 
@@ -194,4 +195,9 @@ async function getCords() {
     }
 }
 
-getLocation()
+async function start() {
+    await getLocation()
+    await getMisterXLocation()
+}
+
+start()

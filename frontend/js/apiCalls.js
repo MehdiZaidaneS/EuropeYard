@@ -14,7 +14,6 @@ async function apiCall(endpoint, data){
         const response = await fetch(url + endpoint + "/" + data, fetchOptions)
 
         if (response.ok) {
-            console.log("promise resolved and HTTP status is succesful")
             const json_response = await response.json()
             return json_response
         } else {

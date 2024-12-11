@@ -1,4 +1,9 @@
 /*Leaflet icon*/
+.misterX-icon{
+    background-color: red;
+    border: 5px solid rgb(173, 216, 230);
+}
+
 .gray-icon{
     background-color: gray;
     border: 5px solid rgb(173, 216, 230);

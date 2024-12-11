@@ -7,6 +7,8 @@
     <script src="js/apiCalls.js" defer></script>
     <script src="js/map.js" defer></script>
     <script src="js/main.js" defer></script>
+    <script src="js/misterx.js" defer></script>
+
 
 
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"
@@ -21,8 +23,9 @@
     <div class="container">
         <div class="player-board">
             <h1>Player</h1>
+             <h1 id="victory"></h1>
             <h2>Location: <span id="mylocation">Unknown</span></h2>
-            <button class="vehicle">Buss</button>
+            <button class="vehicle">Bus</button>
             <button class="vehicle">Boat</button>
             <button class="vehicle">Plane</button>
         </div>
@@ -31,6 +34,7 @@
         </div>
         <div class="misterx-board">
             <h1>Misterx</h1>
+            <h2>Location: <span id="misterXlocation">Unknown</span></h2>
         </div>
     </div>
 </body>

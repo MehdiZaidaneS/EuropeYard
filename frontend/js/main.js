@@ -143,10 +143,21 @@ async function planeDestinations(location) {
 
 
 function createPlayerMovementCard(text){
-    const cardBoard = document.querySelector(".card-list")
+    const cardBoard = document.querySelector(".cards")
     const div = document.createElement("div")
     const h1 = document.createElement("h1")
-    h1.innerHTML= "You used " + text;
+    h1.innerHTML=text
+    const img = document.createElement("img")
+    img.alt= ""
+    if(text === "Bus"){
+        img.src = "img/Bus.jpg"
+    }else if(text === "Boat"){
+        img.src = "img/Boat.jpg"
+    }else{
+        img.src = "img/Plane.jpg"
+    }
+
+    div.appendChild(img)
     div.appendChild(h1)
     cardBoard.appendChild(div)
 }

@@ -1,34 +1,32 @@
 /*Leaflet icon*/
-.misterX-icon{
+.misterX-icon {
     background-color: red;
     border: 5px solid rgb(173, 216, 230);
 }
 
-.gray-icon{
+.gray-icon {
     background-color: gray;
     border: 5px solid rgb(173, 216, 230);
 }
 
-.green-icon{
+.green-icon {
     background-color: green;
     border: 5px solid rgb(173, 216, 230);
 }
 
-.blue-icon{
+.blue-icon {
     background-color: blue;
     border: 5px solid rgb(173, 216, 230);
 }
 
-.yellow-icon{
+.yellow-icon {
     background-color: yellow;
     border: 5px solid rgb(173, 216, 230);
 }
 
 
-
-
 /* Leaflet map */
-#map{
+#map {
     width: 50%;
     height: 65%;
     display: block;
@@ -41,12 +39,12 @@
 
 /*-------------------------------------*/
 
-body{
+body {
     margin: 0 auto;
     color: white;
 }
 
-.container{
+.container {
     display: flex;
     background-color: black;
     height: 100vh;
@@ -57,38 +55,64 @@ body{
 
 }
 
-.container div{
+.container div {
 
 }
 
-.player-board{
+.player-board {
     width: 25%;
     border-right: 1px solid white;
 }
 
-.misterX-board{
+.misterX-board {
     width: 25%;
-     border-left: 1px solid white;
+    border-left: 1px solid white;
 }
-.upperPart h1{
-     margin-top: 0;
+
+.upperPart h1 {
+    margin-top: 0;
 }
-.upperPart{
+
+.upperPart {
     height: 20%;
 }
 
-.card-list, .card-list-mx{
-     height: calc(100% - 20%);
+.card-list h1 {
+    margin-top: 0;
+}
+
+.card-list, .card-list-mx {
+    height: 80%;
+}
+
+.cards {
+    height: calc(100% - 58.44px);
     overflow: auto;
 }
 
-.card-list div{
-    border: 1px solid white;
-    height: fit-content;
-    margin-bottom: 1px;
+.cards img {
+    width: 100%;
+    display: block;
 }
 
-.card-list-mx div{
+.cards div {
+    border-bottom: 1px solid white;
+    border-top: 1px solid white;
+    height: 70px;
+    width: 100%;
+    margin-bottom: 1px;
+    overflow: hidden;
+    position: relative;
+}
+
+.cards div h1 {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%)
+}
+
+.card-list-mx div {
     border: 1px solid white;
     height: fit-content;
     margin-bottom: 1px;

@@ -1,19 +1,14 @@
 "use strict";
 
 let misterLocation = ""
+let roundCounter = 0
 
 
 //Gets a country from the API and set it as Mister X Location
 async function getMisterXLocation() {
     const countries = await apiCall("getallcountries", "")
     countries.splice(countries.indexOf(playerLocation), 1)
-    const country = randomlyChooseCountry(countries)
-
-    //I delete later
-    const span = document.querySelector("#misterXLocation")
-    span.innerHTML = country
-    //----------------------------------------------------------------------
-    misterLocation = country
+    misterLocation = randomlyChooseCountry(countries)
     console.log("MisterX was spawned in " + misterLocation)
 
 }
@@ -27,8 +22,7 @@ async function mxBusDestinations(location) {
     }
 
     if (checkVehicleUsability(destinations)) {
-        const busTo = randomlyChooseCountry(destinations) //Choosing one random country from all the destinations
-        await updateMxLocation(busTo) // Updating Mister X position variable and text
+        misterLocation = randomlyChooseCountry(destinations)  //Choosing one random country from all the destinations
         console.log("Now he is in " + misterLocation)
     } else {
         console.log("He couldn't use bus so he used boat")
@@ -46,8 +40,7 @@ async function mxBoatDestinations(location) {
     }
 
     if (checkVehicleUsability(destinations)) {
-        const busTo = randomlyChooseCountry(destinations) //Choosing one random country from all the destinations
-        await updateMxLocation(busTo) // Updating Mister X position variable and text
+        misterLocation = randomlyChooseCountry(destinations)  //Choosing one random country from all the destinations
         console.log("Now he is in " + misterLocation)
     } else {
         console.log("He couldn't use boat so he used bus")
@@ -59,38 +52,45 @@ async function mxBoatDestinations(location) {
 async function mxPlaneDestinations(location) {
     const destinations = await apiCall("planedestinations", location) //Getting all destinations
     destinations.splice(destinations.indexOf(playerLocation), 1) //Removing player location as destination
-    const flyTo = randomlyChooseCountry(destinations) //Choosing one random country from all the destinations
-    await updateMxLocation(flyTo) // Updating Mister X position variable and text
+    misterLocation = randomlyChooseCountry(destinations) //Choosing one random country from all the destinations
     console.log("Now he is in " + misterLocation)
 }
 
 
 //Function that updates every 3 rounds MisterX's location.
-async function updateMxLocation(newLocation) {
-
-    // Can delete soon.
-    const span = document.querySelector("#misterXLocation")
-    span.innerHTML = newLocation
-    misterLocation = newLocation
-    misterXGroup.clearLayers()
-    // ---------------------------------------------------------------
-
-    if (misterLocation === "Russia") {
-        L.marker([54.96, 35.47]).addTo(misterXGroup).setIcon(misterXIcon)
-    } else if (misterLocation === "Ireland") {
-        L.marker([53.58, -8.11]).addTo(misterXGroup).setIcon(misterXIcon)
-    } else {
-        const url = `https://restcountries.com/v3.1/name/${misterLocation}`
-        try {
-            const response = await fetch(url);
-            const json_data = await response.json();
-            const latlng = json_data[0]["latlng"]
-            L.marker(latlng).addTo(misterXGroup).setIcon(misterXIcon)
-        } catch (error) {
-            console.log("error.message")
+async function updateMxLocation() {
+    if (roundCounter !==0 && roundCounter % 3 === 0) {
+        misterXGroup.clearLayers()
+        createMisterXMovementCard(misterLocation)
+        const span = document.querySelector("#misterXLocation")
+        span.innerHTML = misterLocation
+        if (misterLocation === "Russia") {
+            L.marker([54.96, 35.47]).addTo(misterXGroup).setIcon(misterXIcon)
+        } else if (misterLocation === "Ireland") {
+            L.marker([53.58, -8.11]).addTo(misterXGroup).setIcon(misterXIcon)
+        } else {
+            const url = `https://restcountries.com/v3.1/name/${misterLocation}`
+            try {
+                const response = await fetch(url);
+                const json_data = await response.json();
+                const latlng = json_data[0]["latlng"]
+                L.marker(latlng).addTo(misterXGroup).setIcon(misterXIcon)
+            } catch (error) {
+                console.log("error.message")
+            }
         }
+    } else {
+        console.log("Doesnt reveal it self")
     }
+}
 
+function createMisterXMovementCard(text){
+    const cardBoard = document.querySelector(".card-list-mx")
+    const div = document.createElement("div")
+    const h1 = document.createElement("h1")
+    h1.innerHTML= "You used " + text;
+    div.appendChild(h1)
+    cardBoard.appendChild(div)
 }
 
 
@@ -111,14 +111,21 @@ async function randomMove() {
     const randomInt = Math.floor(Math.random() * 3) + 1;
     switch (randomInt) {
         case 1:
+            await updateMxLocation()
             console.log("Mister X will use bus now...")
+            createMisterXMovementCard("Bus")
             await mxBusDestinations(misterLocation)
             break;
         case 2:
+            await updateMxLocation()
             console.log("Mister X will use boat now...")
+            createMisterXMovementCard("Boat")
             await mxBoatDestinations(misterLocation)
+
             break;
         case 3:
+            await updateMxLocation()
+            createMisterXMovementCard("Plane")
             console.log("Mister X will fly now...")
             await mxPlaneDestinations(misterLocation)
             break;

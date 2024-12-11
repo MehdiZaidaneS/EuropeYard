@@ -4,6 +4,7 @@ let playerLocation = ""
 let busTickets = 10;
 let boatTickets = 5;
 let planeTickets = 1;
+let gameOn = true;
 
 
 // Set starter location for the player.
@@ -51,8 +52,11 @@ function playerPosition(location) {
     if (location === misterLocation) {
         const h1 = document.querySelector("#victory")
         h1.innerHTML = "Victoria!"
+        gameOn = false
+        return true
     } else {
         //Game continues
+        randomMove() //Mister X moves always after player moves.
         console.log("You didnt catch Mister X this time.")
     }
 }
@@ -60,11 +64,14 @@ function playerPosition(location) {
 // IMPORTANT function of movement of player.
 function moveTo(vehicleTicket, vehicle, destination) {
     if (vehicleTicket > 0) {
+        roundCounter = roundCounter + 1; //Counts the round player played.
         markerGroup.clearLayers() // Clear all the marks on the map.
         updateTickets(vehicle) //Updates the tickets according to the vehicle using.
         updatePlayerLocationMarker(destination) //Updates the location marker of the player
         updatePlayerLocationText(destination) //Updates the text of the location of the player.
-        randomMove() //Mister X moves always after player moves.
+        createPlayerMovementCard(vehicle)
+        playerPosition(destination) // Checks if player found MisterX
+
     } else {
         console.log("You dont have enough tickets") //You cant move, if you don't have enough tickets
     }
@@ -91,12 +98,12 @@ function updateTickets(vehicle) {
 async function markPossibleDestinations(destinations, icon, vehicleTicket, vehicle) {
     for (let destination of destinations) {
         if (destination === "Russia") {
-            L.marker([54.96, 35.47]).addTo(markerGroup).setIcon(icon).on("click", function (e){
-                moveTo(vehicleTicket,vehicle,destination) //When the marker it is clicked
+            L.marker([54.96, 35.47]).addTo(markerGroup).setIcon(icon).on("click", function (e) {
+                moveTo(vehicleTicket, vehicle, destination) //When the marker it is clicked
             })
         } else if (destination === "Ireland") {
-            L.marker([53.58, -8.11]).addTo(markerGroup).setIcon(icon).on("click", function (e){
-                moveTo(vehicleTicket,vehicle,destination)
+            L.marker([53.58, -8.11]).addTo(markerGroup).setIcon(icon).on("click", function (e) {
+                moveTo(vehicleTicket, vehicle, destination)
             })
         } else {
             const url = `https://restcountries.com/v3.1/name/${destination}`
@@ -104,9 +111,9 @@ async function markPossibleDestinations(destinations, icon, vehicleTicket, vehic
                 const response = await fetch(url);
                 const json_data = await response.json();
                 const latlng = json_data[0]["latlng"]
-                L.marker(latlng).addTo(markerGroup).setIcon(icon).on("click", function (e){
-                moveTo(vehicleTicket,vehicle,destination)
-            })
+                L.marker(latlng).addTo(markerGroup).setIcon(icon).on("click", function (e) {
+                    moveTo(vehicleTicket, vehicle, destination)
+                })
             } catch (error) {
                 console.log("error.message")
             }
@@ -118,7 +125,7 @@ async function markPossibleDestinations(destinations, icon, vehicleTicket, vehic
 // Player bus movement function
 async function busDestinations(location) {
     const response = await apiCall("busdestinations", location)
-    await markPossibleDestinations(response,greenIcon, busTickets, "Bus")
+    await markPossibleDestinations(response, greenIcon, busTickets, "Bus")
 }
 
 // Player boat movement function.
@@ -130,25 +137,39 @@ async function boatDestinations(location) {
 // Player plane movement function
 async function planeDestinations(location) {
     const response = await apiCall("planedestinations", location)
-    await markPossibleDestinations(response,yellowIcon, planeTickets, "Plane")
+    await markPossibleDestinations(response, yellowIcon, planeTickets, "Plane")
 
 }
 
+
+function createPlayerMovementCard(text){
+    const cardBoard = document.querySelector(".card-list")
+    const div = document.createElement("div")
+    const h1 = document.createElement("h1")
+    h1.innerHTML= "You used " + text;
+    div.appendChild(h1)
+    cardBoard.appendChild(div)
+}
 
 const buttons = document.getElementsByClassName("vehicle")
 for (let button of buttons) {
     button.addEventListener("click", function (evt) {
         evt.preventDefault();
-        if (button.innerHTML === "Bus") {
-            console.log("i pressed bus")
-            busDestinations(playerLocation)
-        } else if (button.innerHTML === "Boat") {
-            console.log("i pressed boat")
-            boatDestinations(playerLocation)
-        } else {
-            console.log("i pressed plane")
-            planeDestinations(playerLocation)
+        if (gameOn) {
+            if (button.innerHTML === "Bus") {
+                console.log("i pressed bus")
+                busDestinations(playerLocation)
+            } else if (button.innerHTML === "Boat") {
+                console.log("i pressed boat")
+                boatDestinations(playerLocation)
+            } else {
+                console.log("i pressed plane")
+                planeDestinations(playerLocation)
+            }
+        }else{
+            console.log("You won baaaabyyy")
         }
+
 
     })
 }

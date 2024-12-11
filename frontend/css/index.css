@@ -30,7 +30,7 @@
 /* Leaflet map */
 #map{
     width: 50%;
-    height: 50vh;
+    height: 65%;
     display: block;
 
 }
@@ -54,11 +54,11 @@ body{
     margin: 0;
     text-align: center;
     justify-content: center;
-    align-items: center;
+
 }
 
 .container div{
-    height: 100%;
+
 }
 
 .player-board{
@@ -69,6 +69,30 @@ body{
 .misterX-board{
     width: 25%;
      border-left: 1px solid white;
+}
+.upperPart h1{
+     margin-top: 0;
+}
+.upperPart{
+    height: 20%;
+}
+
+.card-list, .card-list-mx{
+     height: calc(100% - 20%);
+    overflow: auto;
+}
+
+.card-list div{
+    border: 1px solid white;
+    height: fit-content;
+    margin-bottom: 1px;
+}
+
+.card-list-mx div{
+    border: 1px solid white;
+    height: fit-content;
+    margin-bottom: 1px;
+
 }
 
 

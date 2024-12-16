@@ -141,7 +141,7 @@ async function planeDestinations(location) {
 
 }
 
-
+// Function that creates movement card of player according to vehicle he used.
 function createPlayerMovementCard(text){
     const cardBoard = document.querySelector(".cards")
     const div = document.createElement("div")

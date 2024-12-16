@@ -55,9 +55,10 @@ body {
 
 }
 
-.container div {
 
-}
+
+
+/* Player and Mister X Board */
 
 .player-board {
     width: 25%;
@@ -81,6 +82,10 @@ body {
     margin-top: 0;
 }
 
+.card-list-mx h1{
+    margin-top: 0;
+}
+
 .card-list, .card-list-mx {
     height: 80%;
 }
@@ -90,12 +95,32 @@ body {
     overflow: auto;
 }
 
+.mx-cards{
+    height: calc(100% - 58.44px);
+    overflow: auto;
+}
+
 .cards img {
     width: 100%;
     display: block;
 }
 
+.mx-cards img {
+    width: 100%;
+    display: block;
+}
+
 .cards div {
+    border-bottom: 1px solid white;
+    border-top: 1px solid white;
+    height: 70px;
+    width: 100%;
+    margin-bottom: 1px;
+    overflow: hidden;
+    position: relative;
+}
+
+.mx-cards div{
     border-bottom: 1px solid white;
     border-top: 1px solid white;
     height: 70px;
@@ -112,12 +137,14 @@ body {
     transform: translate(-50%, -50%)
 }
 
-.card-list-mx div {
-    border: 1px solid white;
-    height: fit-content;
-    margin-bottom: 1px;
-
+.mx-cards div h1{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%)
 }
+
+
 
 
 

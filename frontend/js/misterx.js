@@ -59,7 +59,7 @@ async function mxPlaneDestinations(location) {
 
 //Function that updates every 3 rounds MisterX's location.
 async function updateMxLocation() {
-    if (roundCounter !==0 && roundCounter % 3 === 0) {
+    if (roundCounter !== 0 && roundCounter % 3 === 0) {
         misterXGroup.clearLayers()
         createMisterXMovementCard(misterLocation)
         const span = document.querySelector("#misterXLocation")
@@ -73,6 +73,7 @@ async function updateMxLocation() {
             try {
                 const response = await fetch(url);
                 const json_data = await response.json();
+                console.log(json_data)
                 const latlng = json_data[0]["latlng"]
                 L.marker(latlng).addTo(misterXGroup).setIcon(misterXIcon)
             } catch (error) {
@@ -82,15 +83,6 @@ async function updateMxLocation() {
     } else {
         console.log("Doesnt reveal it self")
     }
-}
-
-function createMisterXMovementCard(text){
-    const cardBoard = document.querySelector(".card-list-mx")
-    const div = document.createElement("div")
-    const h1 = document.createElement("h1")
-    h1.innerHTML= "You used " + text;
-    div.appendChild(h1)
-    cardBoard.appendChild(div)
 }
 
 
@@ -106,6 +98,37 @@ function randomlyChooseCountry(listOfOptions) {
 }
 
 
+// Function that creates movement card of Mister X according to vehicle he used.
+async function createMisterXMovementCard(text) {
+    const cardBoard = document.querySelector(".mx-cards")
+    const div = document.createElement("div")
+    const h1 = document.createElement("h1")
+    h1.innerHTML = text
+    const img = document.createElement("img")
+    img.alt = ""
+    if (text === "Bus") {
+        img.src = "img/MxBus.jpg"
+    } else if (text === "Boat") {
+        img.src = "img/MxBoat.jpg"
+    } else if (text === "Plane") {
+        img.src = "img/MxPlane.jpg"
+    } else {
+        const picture = `https://restcountries.com/v3.1/name/${misterLocation}`
+        try {
+            const response = await fetch(picture);
+            const json_data = await response.json();
+            img.src = json_data[0]["flags"]["png"]
+        } catch (error) {
+            console.log("error.message")
+        }
+    }
+
+    div.appendChild(img)
+    div.appendChild(h1)
+    cardBoard.appendChild(div)
+}
+
+
 // Mister X moves through the map, choosing vehicle randomly.
 async function randomMove() {
     const randomInt = Math.floor(Math.random() * 3) + 1;
@@ -113,21 +136,20 @@ async function randomMove() {
         case 1:
             await updateMxLocation()
             console.log("Mister X will use bus now...")
-            createMisterXMovementCard("Bus")
             await mxBusDestinations(misterLocation)
+            createMisterXMovementCard("Bus")
             break;
         case 2:
             await updateMxLocation()
             console.log("Mister X will use boat now...")
-            createMisterXMovementCard("Boat")
             await mxBoatDestinations(misterLocation)
-
+            createMisterXMovementCard("Boat")
             break;
         case 3:
             await updateMxLocation()
-            createMisterXMovementCard("Plane")
             console.log("Mister X will fly now...")
             await mxPlaneDestinations(misterLocation)
+            createMisterXMovementCard("Plane")
             break;
     }
 

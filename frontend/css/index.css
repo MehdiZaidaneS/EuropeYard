@@ -28,14 +28,18 @@
 /* Leaflet map */
 #map {
     width: 50%;
-    height: 65%;
+    height: 100%;
     display: block;
-
+    border-radius: 1%;
+    position: relative;
 }
+
+
 
 .leaflet-control-attribution.leaflet-control {
     display: none;
 }
+
 
 /*-------------------------------------*/
 
@@ -46,14 +50,15 @@ body {
 
 .container {
     display: flex;
-    background-color: black;
+    background-color: #4800ff;
     height: 100vh;
     width: 100%;
     margin: 0;
     text-align: center;
     justify-content: center;
-
 }
+
+
 
 
 
@@ -62,20 +67,20 @@ body {
 
 .player-board {
     width: 25%;
-    border-right: 1px solid white;
 }
 
 .misterX-board {
     width: 25%;
-    border-left: 1px solid white;
 }
 
 .upperPart h1 {
-    margin-top: 0;
+    padding-top: 10px;
+    margin: 0;
 }
 
 .upperPart {
     height: 20%;
+
 }
 
 .card-list h1 {
@@ -98,16 +103,26 @@ body {
 .mx-cards{
     height: calc(100% - 58.44px);
     overflow: auto;
+
 }
 
 .cards img {
     width: 100%;
     display: block;
+    object-fit: cover;
+    object-position: center;
+    height: 100%;
 }
 
 .mx-cards img {
-    width: 100%;
+
     display: block;
+    width: 100%;
+    object-fit: cover;
+    object-position: center;
+    height: 100%;
+
+
 }
 
 .cards div {
@@ -141,7 +156,9 @@ body {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%)
+    transform: translate(-50%, -50%);
+    color: black;
+
 }
 
 

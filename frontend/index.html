@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>EuropeYard</title>
-    <link href="css/index.css" rel="stylesheet">
+
     <script src="js/apiCalls.js" defer></script>
     <script src="js/map.js" defer></script>
     <script src="js/main.js" defer></script>
@@ -14,22 +14,25 @@
     <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"
             integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo="
             crossorigin=""></script>
-
+    <link href="css/index.css" rel="stylesheet">
 </head>
 <body>
+
+
 <div class="container">
     <div class="player-board">
 
         <div class="upperPart">
-            <h1>Player</h1>
+            <h1>Player Name</h1>
             <h1 id="victory"></h1>
             <h2>Location: <span id="mylocation">Unknown</span></h2>
+
             <button class="vehicle">Bus</button>
-            <span id="busTickets">Left: 10</span>
+            <span id="busTickets">Bus Left: 10</span>
             <button class="vehicle">Boat</button>
-            <span id="boatTickets">Left: 5</span>
+            <span id="boatTickets">Boat Left: 5</span>
             <button class="vehicle">Plane</button>
-            <span id="planeTickets">Left: 1</span>
+            <span id="planeTickets">Plain Left: 1</span>
         </div>
 
         <div class="card-list">
@@ -42,11 +45,14 @@
     </div>
     <div id="map">
 
+
     </div>
+
     <div class="misterX-board">
         <div class="upperPart">
             <h1>MisterX</h1>
             <h2>Location: <span id="misterXLocation">Unknown</span></h2>
+            <h5>Position reveal in 3 rounds...</h5>
         </div>
 
         <div class="card-list-mx">

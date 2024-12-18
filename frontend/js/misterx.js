@@ -24,6 +24,7 @@ async function mxBusDestinations(location) {
     if (checkVehicleUsability(destinations)) {
         misterLocation = randomlyChooseCountry(destinations)  //Choosing one random country from all the destinations
         console.log("Now he is in " + misterLocation)
+        createMisterXMovementCard("Bus")
     } else {
         console.log("He couldn't use bus so he used boat")
         await mxBoatDestinations(misterLocation) //In case of not being able to use bus, uses boat.
@@ -42,6 +43,7 @@ async function mxBoatDestinations(location) {
     if (checkVehicleUsability(destinations)) {
         misterLocation = randomlyChooseCountry(destinations)  //Choosing one random country from all the destinations
         console.log("Now he is in " + misterLocation)
+        createMisterXMovementCard("Boat")
     } else {
         console.log("He couldn't use boat so he used bus")
         await mxBusDestinations(misterLocation) // In case not being able to use boat, uses bus.
@@ -54,6 +56,7 @@ async function mxPlaneDestinations(location) {
     destinations.splice(destinations.indexOf(playerLocation), 1) //Removing player location as destination
     misterLocation = randomlyChooseCountry(destinations) //Choosing one random country from all the destinations
     console.log("Now he is in " + misterLocation)
+    createMisterXMovementCard("Plane")
 }
 
 
@@ -117,7 +120,7 @@ async function createMisterXMovementCard(text) {
         try {
             const response = await fetch(picture);
             const json_data = await response.json();
-            img.src = json_data[0]["flags"]["png"]
+            img.src = json_data[0]["flags"]["svg"]
         } catch (error) {
             console.log("error.message")
         }
@@ -131,26 +134,22 @@ async function createMisterXMovementCard(text) {
 
 // Mister X moves through the map, choosing vehicle randomly.
 async function randomMove() {
-    const randomInt = Math.floor(Math.random() * 3) + 1;
-    switch (randomInt) {
-        case 1:
-            await updateMxLocation()
-            console.log("Mister X will use bus now...")
-            await mxBusDestinations(misterLocation)
-            createMisterXMovementCard("Bus")
-            break;
-        case 2:
-            await updateMxLocation()
-            console.log("Mister X will use boat now...")
-            await mxBoatDestinations(misterLocation)
-            createMisterXMovementCard("Boat")
-            break;
-        case 3:
-            await updateMxLocation()
-            console.log("Mister X will fly now...")
-            await mxPlaneDestinations(misterLocation)
-            createMisterXMovementCard("Plane")
-            break;
-    }
+    const randomInt = Math.floor(Math.random() * 10) + 1;
+    console.log(randomInt)
+    if (randomInt <= 5) {
+        await updateMxLocation()
+        console.log("Mister X will use bus now...")
+        await mxBusDestinations(misterLocation)
 
+    } else if (randomInt > 5 && randomInt <= 9) {
+        await updateMxLocation()
+        console.log("Mister X will use boat now...")
+        await mxBoatDestinations(misterLocation)
+
+    } else {
+        await updateMxLocation()
+        console.log("Mister X will fly now...")
+        await mxPlaneDestinations(misterLocation)
+
+    }
 }

@@ -26,11 +26,45 @@
 
 
 /* Leaflet map */
-#map {
+.map-container{
+    width: 60%;
+    border: 1px solid rgba(255, 255, 255, 0.04);
+
+}
+
+#controller{
+    display: flex;
+    flex-direction: column;
+    background-color: rgba(30, 30, 30, 0.02);
+    width: 60%;
+    height: calc(45% - 10px);
+    justify-self: center;
+}
+
+#controller h1{
+    margin-top: 30px;
+}
+
+#start-buttons{
+    margin: 20px;
+}
+
+#start-buttons button{
     width: 50%;
-    height: 100%;
+    font-size: 15px;
+    padding: 10px;
+    margin: 5px;
+}
+
+
+
+#map {
+    margin-top: 10px;
+    width: 90%;
+    height: 55%;
     display: block;
-    border-radius: 1%;
+    justify-self: center;
+
     position: relative;
 }
 
@@ -46,16 +80,21 @@
 body {
     margin: 0 auto;
     color: white;
+    font-family: Cambria;
 }
 
 .container {
     display: flex;
-    background-color: #4800ff;
+    background-color: black;
     height: 100vh;
     width: 100%;
     margin: 0;
     text-align: center;
     justify-content: center;
+}
+
+button{
+    font-family: Georgia;
 }
 
 
@@ -66,11 +105,13 @@ body {
 /* Player and Mister X Board */
 
 .player-board {
-    width: 25%;
+    width: 20%;
+    background-color: rgba(11, 11, 11, 0.15);
 }
 
 .misterX-board {
-    width: 25%;
+    width: 20%;
+     background-color: rgba(11, 11, 11, 0.15);
 }
 
 .upperPart h1 {
@@ -80,6 +121,7 @@ body {
 
 .upperPart {
     height: 20%;
+
 
 }
 
@@ -159,6 +201,12 @@ body {
     transform: translate(-50%, -50%);
     color: black;
 
+}
+
+
+.sidebar{
+    background-color: blue;
+    width: 25%;
 }
 
 

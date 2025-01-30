@@ -24,7 +24,11 @@
     <div class="player-board">
 
         <div class="upperPart">
-            <h1>Player Name</h1>
+            <div>
+                <img id="player-pp" src="img/placeholderpp.png" width="60" height="60" alt="">
+                <h1>Player Name</h1>
+            </div>
+
             <h1 id="victory"></h1>
             <h2>Location: <span id="mylocation">Unknown</span></h2>
 
@@ -53,14 +57,23 @@
                 <a href="highscore.html">Highest Scores</a>
             </div>
 
+
             <div id="movement-buttons">
-                <button class="vehicle">Bus</button>
-                <span id="busTickets">Bus Left: 10</span>
-                <button class="vehicle">Boat</button>
-                <span id="boatTickets">Boat Left: 5</span>
-                <button class="vehicle">Plane</button>
-                <span id="planeTickets">Plain Left: 1</span>
+                <div class="vehicle">
+                    <img src="img/Plane.jpg" alt="">
+                    <h1 class="text">Plane </h1>
+                </div>
+                <div class="vehicle">
+                    <img src="img/Boat.jpg" alt="">
+                    <h1 class="text">Boat</h1>
+
+                </div>
+                <div class="vehicle">
+                    <img src="img/Bus.jpg" alt="">
+                    <h1 class="text">Bus</h1>
+                </div>
             </div>
+            <p id="error-message">You cant write here!</p>
         </div>
 
     </div>
@@ -69,52 +82,18 @@
     <div class="misterX-board">
 
         <div class="upperPart">
-            <h1>MisterX</h1>
+            <div>
+                <img id="misterx-pp" src="img/logo.png" width="60" height="60" alt="">
+                <h1>MisterX</h1>
+            </div>
+
             <h2>Location: <span id="misterXLocation">Unknown</span></h2>
-            <h5>Position reveal in 3 rounds...</h5>
         </div>
 
         <div class="card-list-mx">
             <h1>Last moves:</h1>
             <div class="mx-cards">
-                <!--
-                <div>
-                    <img src="img/MxBus.jpg" alt="">
-                    <h1>Bus</h1>
-                </div>
-                <div>
-                    <img src="img/MxBus.jpg" alt="">
-                    <h1>Bus</h1>
-                </div>
-                <div>
-                    <img src="img/MxBus.jpg" alt="">
-                    <h1>Bus</h1>
-                </div>
-                <div>
-                    <img src="img/MxBus.jpg" alt="">
-                    <h1>Bus</h1>
-                </div>
-                <div>
-                    <img src="img/MxBus.jpg" alt="">
-                    <h1>Bus</h1>
-                </div>
-                <div>
-                    <img src="img/MxBus.jpg" alt="">
-                    <h1>Bus</h1>
-                </div>
-                <div>
-                    <img src="img/MxBus.jpg" alt="">
-                    <h1>Bus</h1>
-                </div>
-                <div>
-                    <img src="img/MxBus.jpg" alt="">
-                    <h1>Bus</h1>
-                </div>
-                <div>
-                    <img src="img/MxBus.jpg" alt="">
-                    <h1>Bus</h1>
-                </div>
-                -->
+
             </div>
 
         </div>

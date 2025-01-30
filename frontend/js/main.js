@@ -82,15 +82,15 @@ function updateTickets(vehicle) {
     if (vehicle === "Bus") {
         busTickets -= 1;
         const span = document.querySelector("#busTickets")
-        span.innerHTML = "Left: " + busTickets
+        //span.innerHTML = "Left: " + busTickets
     } else if (vehicle === "Boat") {
         boatTickets -= 1;
         const span = document.querySelector("#boatTickets")
-        span.innerHTML = "Left: " + boatTickets
+        //span.innerHTML = "Left: " + boatTickets
     } else {
         planeTickets -= 1;
         const span = document.querySelector("#planeTickets")
-        span.innerHTML = "Left: " + planeTickets
+        //span.innerHTML = "Left: " + planeTickets
     }
 }
 
@@ -166,11 +166,12 @@ const buttons = document.getElementsByClassName("vehicle")
 for (let button of buttons) {
     button.addEventListener("click", function (evt) {
         evt.preventDefault();
+        const h1 = button.querySelector(".text")
         if (gameOn) {
-            if (button.innerHTML === "Bus") {
+            if (h1.innerHTML === "Bus") {
                 console.log("i pressed bus")
                 busDestinations(playerLocation)
-            } else if (button.innerHTML === "Boat") {
+            } else if (h1.innerHTML === "Boat") {
                 console.log("i pressed boat")
                 boatDestinations(playerLocation)
             } else {
@@ -197,7 +198,7 @@ startButton.addEventListener("click", function (evt){
     evt.preventDefault()
     misterXBoard.style.display = "block";
     playerBoard.style.display = "block";
-    movementButtons.style.display = "block";
+    movementButtons.style.display = "flex";
     startButtons.style.display = "none";
     controllerH1.innerHTML = "What is your next move?";
     start()

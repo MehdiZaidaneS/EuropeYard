@@ -186,10 +186,30 @@ for (let button of buttons) {
 }
 
 
+const startButton = document.getElementById("start-game")
+const misterXBoard = document.querySelector(".misterX-board")
+const playerBoard = document.querySelector(".player-board");
+const startButtons = document.getElementById("start-buttons")
+const movementButtons = document.getElementById("movement-buttons")
+const controllerH1 = document.getElementById("controller-h1");
+
+startButton.addEventListener("click", function (evt){
+    evt.preventDefault()
+    misterXBoard.style.display = "block";
+    playerBoard.style.display = "block";
+    movementButtons.style.display = "block";
+    startButtons.style.display = "none";
+    controllerH1.innerHTML = "What is your next move?";
+    start()
+})
+
+
+
+
 // Starting function
 async function start() {
     await getLocation()
     await getMisterXLocation()
 }
 
-start()
+

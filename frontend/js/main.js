@@ -69,7 +69,7 @@ function moveTo(vehicleTicket, vehicle, destination) {
         updateTickets(vehicle) //Updates the tickets according to the vehicle using.
         updatePlayerLocationMarker(destination) //Updates the location marker of the player
         updatePlayerLocationText(destination) //Updates the text of the location of the player.
-        createPlayerMovementCard(vehicle)
+        //createPlayerMovementCard(vehicle)
         playerPosition(destination) // Checks if player found MisterX
 
     } else {
@@ -141,6 +141,8 @@ async function planeDestinations(location) {
 
 }
 
+
+/*
 // Function that creates movement card of player according to vehicle he used.
 function createPlayerMovementCard(text){
     const cardBoard = document.querySelector(".cards")
@@ -161,6 +163,7 @@ function createPlayerMovementCard(text){
     div.appendChild(h1)
     cardBoard.appendChild(div)
 }
+*/
 
 const buttons = document.getElementsByClassName("vehicle")
 for (let button of buttons) {

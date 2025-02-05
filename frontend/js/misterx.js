@@ -110,11 +110,12 @@ async function createMisterXMovementCard(text) {
     const img = document.createElement("img")
     img.alt = ""
     if (text === "Bus") {
-        img.src = "img/MxBus.jpg"
+        img.src = "img/MxBus2.jpg"
+        //h1.style.color = "gray";
     } else if (text === "Boat") {
         img.src = "img/MxBoat.jpg"
     } else if (text === "Plane") {
-        img.src = "img/MxPlane.jpg"
+        img.src = "img/MxPlane2.jpg"
     } else {
         const picture = `https://restcountries.com/v3.1/name/${misterLocation}`
         try {
@@ -129,6 +130,7 @@ async function createMisterXMovementCard(text) {
     div.appendChild(img)
     div.appendChild(h1)
     cardBoard.appendChild(div)
+    cardBoard.scrollTop = cardBoard.scrollHeight;
 }
 
 

@@ -37,17 +37,17 @@
     justify-content: center;
 }
 
-.map-container{
+.map-container {
     width: 60%;
     border: 1px solid rgba(255, 255, 255, 0.04);
 
 }
 
-#error-message{
+#error-message {
     display: none;
 }
 
-#controller{
+#controller {
     display: flex;
     flex-direction: column;
     background-color: rgba(30, 30, 30, 0.02);
@@ -56,12 +56,12 @@
     justify-self: center;
 }
 
-#controller h1{
+#controller h1 {
     margin-top: 30px;
     margin-bottom: 35px;
 }
 
-#start-buttons{
+#start-buttons {
     display: flex;
     flex-direction: column;
     margin: 0 auto;
@@ -70,7 +70,7 @@
 
 }
 
-#start-buttons a{
+#start-buttons a {
     background-color: burlywood;
     color: black;
     text-decoration: none;
@@ -82,12 +82,12 @@
     justify-content: center;
 }
 
-#start-buttons a:hover{
+#start-buttons a:hover {
     cursor: pointer;
     background-color: white;
 }
 
-#movement-buttons{
+#movement-buttons {
 
     margin: 0 auto;
     text-align: center;
@@ -95,7 +95,7 @@
     display: none;
 }
 
-#movement-buttons div{
+#movement-buttons div {
     margin: 5px;
     position: relative;
     height: 100%;
@@ -119,12 +119,9 @@
     height: 100%;
 }
 
-#movement-buttons div:hover{
+#movement-buttons div:hover {
     cursor: pointer;
 }
-
-
-
 
 
 /* Leaflet map */
@@ -140,7 +137,6 @@
 }
 
 
-
 .leaflet-control-attribution.leaflet-control {
     display: none;
 }
@@ -154,76 +150,64 @@ body {
     font-family: Cambria;
 }
 
-a{
+a {
     font-family: Georgia;
 }
 
 
-
-/* Player and Mister X Board */
+/* Mister X Board */
 
 .player-board {
-    display: none;
+    /*display: none;*/
     width: 20%;
     background-color: rgba(11, 11, 11, 0.15);
 }
+
 
 .misterX-board {
-    display: none;
+    /*display: none;*/
     width: 20%;
     background-color: rgba(11, 11, 11, 0.15);
 }
 
-#misterx-pp{
+#misterx-pp {
     border-radius: 100%;
     border: 1px solid white;
 }
 
-#player-pp{
-    border-radius: 100%;
-    border: 1px solid white;
-}
 
-.upperPart{
+.upperPart {
     margin-top: 20px;
 }
 
-.upperPart div{
+
+.upperPart div {
     display: flex;
     width: 100%;
     justify-content: center;
     align-items: center;
 }
 
-.upperPart div h1{
+
+.upperPart div h1 {
     margin-left: 10px;
 }
 
 
-
-.card-list, .card-list-mx {
+.card-list-mx {
     height: 80%;
 
 }
 
-.cards {
+
+.mx-cards {
     height: calc(100% - 58.44px);
     overflow: auto;
-}
-
-.mx-cards{
-    height: calc(100% - 58.44px);
-    overflow: auto;
+    margin: 0 auto;
+    justify-content: center;
 
 }
 
-.cards img {
-    width: 100%;
-    display: block;
-    object-fit: cover;
-    object-position: center;
-    height: 100%;
-}
 
 .mx-cards img {
 
@@ -236,48 +220,53 @@ a{
 
 }
 
-.cards div {
-    border-bottom: 1px solid white;
-    border-top: 1px solid white;
+
+.mx-cards div {
+    border: 2px solid rgba(255, 255, 255, 0.28);
+    box-sizing: border-box;
     height: 70px;
-    width: 100%;
-    margin-bottom: 1px;
+    width: 85%;
+    margin: 0 auto 2px auto;
     overflow: hidden;
     position: relative;
+    justify-content: center;
+
 }
 
-.mx-cards div{
-    border-bottom: 1px solid white;
-    border-top: 1px solid white;
-    height: 70px;
-    width: 100%;
-    margin-bottom: 1px;
-    overflow: hidden;
-    position: relative;
-}
 
-.cards div h1 {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%)
-}
-
-.mx-cards div h1{
+.mx-cards div h1 {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    color: black;
+    color: white;
+    margin: 0 auto;
+    text-shadow: 2px 2px rgb(0, 0, 0);
+
+
+
 
 }
 
-
-.sidebar{
-    background-color: blue;
-    width: 25%;
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
 }
 
+/* Track */
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #888;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
 
 
 

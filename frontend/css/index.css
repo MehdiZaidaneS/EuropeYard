@@ -10,7 +10,7 @@
 }
 
 .green-icon {
-    background-color: green;
+    background-image: url("frontend/img/logo.png");
     border: 5px solid rgb(173, 216, 230);
 }
 

@@ -9,11 +9,28 @@ const maxBoundArea = L.latLngBounds(southWest, northEast);
 const map = L.map('map', {tap: false, zoomControl: false, maxBounds: maxBoundArea});
 
 // Setting icon variables
-const grayIcon = L.divIcon({className: "gray-icon"})
-const greenIcon = L.divIcon({className: "green-icon"})
-const blueIcon = L.divIcon({className: "blue-icon"})
-const yellowIcon = L.divIcon({className: "yellow-icon"})
-const misterXIcon = L.divIcon({className: "misterX-icon"})
+
+const misterXIcon = L.icon({
+    iconUrl: 'img/logo.png',
+    iconSize:     [25, 25], // size of the icon
+
+});
+
+const greenIcon = L.icon({
+    iconUrl: 'img/busIcon.png',
+    iconSize:     [20, 20], // size of the icon
+});
+
+const blueIcon = L.icon({
+    iconUrl: 'img/boatIcon.png',
+    iconSize:     [20, 20], // size of the icon
+});
+
+const yellowIcon = L.icon({
+    iconUrl: 'img/planeIcon.png',
+    iconSize:     [20, 20], // size of the icon
+});
+
 
 
 // Adding layer to the map. With minZoom and maxZoom
@@ -24,6 +41,9 @@ L.tileLayer('https://server.arcgisonline.com/ArcGIS/rest/services/Canvas/World_L
 }).addTo(map);
 
 
+
+
+
 // Setting starting view and zoom.
 map.setView([48.88216501257649, 19.006699861864657], 4);
 
@@ -31,6 +51,10 @@ map.setView([48.88216501257649, 19.006699861864657], 4);
 // Creating group of markers.
 let markerGroup = L.layerGroup().addTo(map)
 let misterXGroup = L.layerGroup().addTo(map)
+
+
+
+
 
 
 

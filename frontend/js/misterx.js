@@ -68,9 +68,9 @@ async function updateMxLocation() {
         const span = document.querySelector("#misterXLocation")
         span.innerHTML = misterLocation
         if (misterLocation === "Russia") {
-            L.marker([54.96, 35.47]).addTo(misterXGroup).setIcon(misterXIcon)
+            L.marker([54.96, 35.47]).addTo(misterXGroup).setIcon(misterXIcon).bindPopup("MisterX last position was " + misterLocation + ".");
         } else if (misterLocation === "Ireland") {
-            L.marker([53.58, -8.11]).addTo(misterXGroup).setIcon(misterXIcon)
+            L.marker([53.58, -8.11]).addTo(misterXGroup).setIcon(misterXIcon).bindPopup("MisterX last position was " + misterLocation + ".");
         } else {
             const url = `https://restcountries.com/v3.1/name/${misterLocation}`
             try {
@@ -78,7 +78,7 @@ async function updateMxLocation() {
                 const json_data = await response.json();
                 console.log(json_data)
                 const latlng = json_data[0]["latlng"]
-                L.marker(latlng).addTo(misterXGroup).setIcon(misterXIcon)
+                L.marker(latlng).addTo(misterXGroup).setIcon(misterXIcon).bindPopup("MisterX last position was " + misterLocation + ".");
             } catch (error) {
                 console.log("error.message")
             }

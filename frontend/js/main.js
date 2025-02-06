@@ -30,16 +30,16 @@ function updatePlayerLocationText(location) {
 async function updatePlayerLocationMarker(location) {
     playerLocation = location
     if (playerLocation === "Russia") {
-        L.marker([54.96, 35.47]).addTo(markerGroup)
+        L.marker([54.96, 35.47]).addTo(markerGroup).bindPopup(`You are currently in ${playerLocation}.`);
     } else if (playerLocation === "Ireland") {
-        L.marker([53.58, -8.11]).addTo(markerGroup)
+        L.marker([53.58, -8.11]).addTo(markerGroup).bindPopup(`You are currently in ${playerLocation}.`);
     } else {
         const url = `https://restcountries.com/v3.1/name/${playerLocation}` //API to get countries LAT and LONG
         try {
             const response = await fetch(url);
             const json_data = await response.json();
             const latlng = json_data[0]["latlng"] //Saves the lat and long fetched.
-            L.marker(latlng).addTo(markerGroup) //Added marker in the location.
+            L.marker(latlng).addTo(markerGroup).bindPopup(`You are currently in ${playerLocation}.`); //Added marker in the location.
         } catch (error) {
             console.log("error.message")
         }

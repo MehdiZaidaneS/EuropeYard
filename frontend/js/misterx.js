@@ -62,8 +62,8 @@ async function mxPlaneDestinations(location) {
 
 //Function that updates every 3 rounds MisterX's location.
 async function updateMxLocation() {
+    misterXGroup.clearLayers()
     if (roundCounter !== 0 && roundCounter % 3 === 0) {
-        misterXGroup.clearLayers()
         createMisterXMovementCard(misterLocation)
         const span = document.querySelector("#misterXLocation")
         span.innerHTML = misterLocation

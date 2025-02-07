@@ -10,6 +10,15 @@ const map = L.map('map', {tap: false, zoomControl: false, maxBounds: maxBoundAre
 
 // Setting icon variables
 
+
+
+
+const marker = L.icon({
+
+
+})
+
+
 const misterXIcon = L.icon({
     iconUrl: 'img/logo.png',
     iconSize:     [25, 25], // size of the icon

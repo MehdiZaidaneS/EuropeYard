@@ -51,6 +51,7 @@ async function updatePlayerLocationMarker(location) {
 function playerPosition(location) {
     if (location === misterLocation) {
         const h1 = document.querySelector("#victory")
+        misterXGroup.clearLayers()
         h1.innerHTML = "Victoria!"
         gameOn = false
         return true
@@ -82,15 +83,15 @@ function updateTickets(vehicle) {
     if (vehicle === "Bus") {
         busTickets -= 1;
         const span = document.querySelector("#busTickets")
-        //span.innerHTML = "Left: " + busTickets
+        span.innerHTML = busTickets
     } else if (vehicle === "Boat") {
         boatTickets -= 1;
         const span = document.querySelector("#boatTickets")
-        //span.innerHTML = "Left: " + boatTickets
+        span.innerHTML = boatTickets
     } else {
         planeTickets -= 1;
         const span = document.querySelector("#planeTickets")
-        //span.innerHTML = "Left: " + planeTickets
+        span.innerHTML = planeTickets
     }
 }
 

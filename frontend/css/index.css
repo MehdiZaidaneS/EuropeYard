@@ -88,17 +88,18 @@
 }
 
 #movement-buttons {
-
-    margin: 0 auto;
     text-align: center;
     height: fit-content;
     display: none;
+    margin-bottom: 100px;
 }
 
 #movement-buttons div {
-    margin: 5px;
     position: relative;
-    height: 100%;
+    background-color: white;
+    width: 60%;
+    justify-content: center;
+     margin: 0 auto 5px auto;
 
 }
 
@@ -118,7 +119,6 @@
     transform: translate(0, 0); /* Remove unnecessary centering */
     color: black;
     margin: 0 auto;
-
     border-bottom: none;
     font-weight: bold;
     font-size: 20px;
@@ -135,6 +135,7 @@
 
 #movement-buttons div:hover {
     cursor: pointer;
+
 }
 
 
@@ -184,11 +185,23 @@ a {
     background-color: rgba(11, 11, 11, 0.15);
 }
 
-#misterx-pp {
+#misterx-pp, #player-pp {
     border-radius: 100%;
     border: 1px solid white;
 }
 
+
+.player-info{
+    margin-top: 20px;
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    align-items: center;
+}
+
+.player-info h1{
+     margin-left: 10px;
+}
 
 .upperPart {
     margin-top: 20px;
@@ -219,19 +232,15 @@ a {
     overflow: auto;
     margin: 0 auto;
     justify-content: center;
-
 }
 
 
 .mx-cards img {
-
     display: block;
     width: 100%;
     object-fit: cover;
     object-position: center;
     height: 100%;
-
-
 }
 
 
@@ -257,6 +266,40 @@ a {
     margin: 0 auto;
     text-shadow: 2px 2px rgb(0, 0, 0);
 }
+
+
+
+
+
+
+.chat{
+    display: block;
+    background-color: #333333;
+    height: 25%;
+    overflow: auto;
+    width: 90%;
+    margin: 0 auto;
+    border-radius: 5px;
+}
+
+.chat div{
+    display: flex;
+    width: 100%;
+    align-items: center;
+    justify-content: left;
+
+}
+
+.chat div p{
+    background-color: #9c9c9c;
+    color: black;
+    padding: 7px;
+    border-radius: 10px;
+    margin: 8px;
+    margin-left: 5px;
+    text-align: left;
+}
+
 
 
 

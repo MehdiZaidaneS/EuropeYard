@@ -16,7 +16,8 @@ async function getLocation() {
     // Update my current marker.
     await updatePlayerLocationMarker(response["country"])
 
-    console.log("My random location was " + playerLocation)
+    createDialog("Your random location was " + playerLocation + ". Uff a bit far away from me.");
+
 
 }
 
@@ -53,6 +54,7 @@ function playerPosition(location) {
         const h1 = document.querySelector("#victory")
         misterXGroup.clearLayers()
         h1.innerHTML = "Victoria!"
+        createDialog("Damn it! You got me this time... Next time will be different.")
         gameOn = false
         return true
     } else {
@@ -74,7 +76,7 @@ function moveTo(vehicleTicket, vehicle, destination) {
         playerPosition(destination) // Checks if player found MisterX
 
     } else {
-        console.log("You dont have enough tickets") //You cant move, if you don't have enough tickets
+        createDialog("Don't you see? You don't have enough " + vehicle + " tickets HAHA") //You cant move, if you don't have enough tickets
     }
 }
 
@@ -100,10 +102,12 @@ async function markPossibleDestinations(destinations, icon, vehicleTicket, vehic
     for (let destination of destinations) {
         if (destination === "Russia") {
             L.marker([54.96, 35.47]).addTo(markerGroup).setIcon(icon).on("click", function (e) {
+                createRandomMsg()
                 moveTo(vehicleTicket, vehicle, destination) //When the marker it is clicked
             })
         } else if (destination === "Ireland") {
             L.marker([53.58, -8.11]).addTo(markerGroup).setIcon(icon).on("click", function (e) {
+                createRandomMsg()
                 moveTo(vehicleTicket, vehicle, destination)
             })
         } else {
@@ -113,6 +117,7 @@ async function markPossibleDestinations(destinations, icon, vehicleTicket, vehic
                 const json_data = await response.json();
                 const latlng = json_data[0]["latlng"]
                 L.marker(latlng).addTo(markerGroup).setIcon(icon).on("click", function (e) {
+                    createRandomMsg()
                     moveTo(vehicleTicket, vehicle, destination)
                 })
             } catch (error) {
@@ -126,13 +131,23 @@ async function markPossibleDestinations(destinations, icon, vehicleTicket, vehic
 // Player bus movement function
 async function busDestinations(location) {
     const response = await apiCall("busdestinations", location)
-    await markPossibleDestinations(response, greenIcon, busTickets, "Bus")
+    if (response.length > 0) {
+        await markPossibleDestinations(response, greenIcon, busTickets, "Bus")
+    } else {
+        createDialog("You can't travel with bus from " + location)
+    }
+
 }
 
 // Player boat movement function.
 async function boatDestinations(location) {
     const response = await apiCall("boatdestinations", location)
-    await markPossibleDestinations(response, blueIcon, boatTickets, "Boat")
+    if (response.length > 0) {
+        await markPossibleDestinations(response, blueIcon, boatTickets, "Boat")
+    } else {
+        createDialog("There is no sea you can sail on, brother!");
+    }
+
 }
 
 // Player plane movement function
@@ -140,31 +155,54 @@ async function planeDestinations(location) {
     const response = await apiCall("planedestinations", location)
     await markPossibleDestinations(response, yellowIcon, planeTickets, "Plane")
 
+
 }
 
 
-/*
-// Function that creates movement card of player according to vehicle he used.
-function createPlayerMovementCard(text){
-    const cardBoard = document.querySelector(".cards")
+// Chat dialog maker
+
+function createDialog(message) {
+
+    const chat = document.querySelector(".chat")
     const div = document.createElement("div")
-    const h1 = document.createElement("h1")
-    h1.innerHTML=text
+    const p = document.createElement("p")
     const img = document.createElement("img")
-    img.alt= ""
-    if(text === "Bus"){
-        img.src = "img/Bus.jpg"
-    }else if(text === "Boat"){
-        img.src = "img/Boat.jpg"
-    }else{
-        img.src = "img/Plane.jpg"
-    }
+    img.src = "img/logo.png"
+    img.width = 30
+    img.height = 30
+    img.alt = ""
+    img.style.marginLeft = "7px";
+    p.innerHTML = message
 
     div.appendChild(img)
-    div.appendChild(h1)
-    cardBoard.appendChild(div)
+    div.appendChild(p)
+
+    chat.appendChild(div)
+
+    chat.scrollTop = chat.scrollHeight;
+
 }
-*/
+
+
+function createRandomMsg() {
+
+    const randomMsg = Math.floor(Math.random() * 8)
+    const randomInt = Math.floor(Math.random() * 20)
+
+    if (randomInt === 3) {
+        fetch('testdata/datatest.json')
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error(`HTTP error! Status: ${response.status}`);
+                }
+                return response.json();
+            })
+            .then(data => createDialog(data["messages"][randomMsg]["msg"]))
+            .catch(error => console.error('Failed to fetch data:', error));
+
+    }
+}
+
 
 const buttons = document.getElementsByClassName("vehicle")
 for (let button of buttons) {
@@ -182,7 +220,7 @@ for (let button of buttons) {
                 console.log("i pressed plane")
                 planeDestinations(playerLocation)
             }
-        }else{
+        } else {
             console.log("You won baaaabyyy")
         }
 
@@ -198,17 +236,15 @@ const startButtons = document.getElementById("start-buttons")
 const movementButtons = document.getElementById("movement-buttons")
 const controllerH1 = document.getElementById("controller-h1");
 
-startButton.addEventListener("click", function (evt){
+startButton.addEventListener("click", function (evt) {
     evt.preventDefault()
     misterXBoard.style.display = "block";
     playerBoard.style.display = "block";
-    movementButtons.style.display = "flex";
+    movementButtons.style.display = "block";
     startButtons.style.display = "none";
     controllerH1.innerHTML = "What is your next move?";
     start()
 })
-
-
 
 
 // Starting function

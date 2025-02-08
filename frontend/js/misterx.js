@@ -9,8 +9,6 @@ async function getMisterXLocation() {
     const countries = await apiCall("getallcountries", "")
     countries.splice(countries.indexOf(playerLocation), 1)
     misterLocation = randomlyChooseCountry(countries)
-    console.log("MisterX was spawned in " + misterLocation)
-
 }
 
 // Mister X bus method.
@@ -23,10 +21,8 @@ async function mxBusDestinations(location) {
 
     if (checkVehicleUsability(destinations)) {
         misterLocation = randomlyChooseCountry(destinations)  //Choosing one random country from all the destinations
-        console.log("Now he is in " + misterLocation)
         createMisterXMovementCard("Bus")
     } else {
-        console.log("He couldn't use bus so he used boat")
         await mxBoatDestinations(misterLocation) //In case of not being able to use bus, uses boat.
     }
 }
@@ -65,6 +61,7 @@ async function updateMxLocation() {
     misterXGroup.clearLayers()
     if (roundCounter !== 0 && roundCounter % 3 === 0) {
         createMisterXMovementCard(misterLocation)
+        createDialog("I will make it more easy for you... Before i moved i was in " + misterLocation)
         const span = document.querySelector("#misterXLocation")
         span.innerHTML = misterLocation
         if (misterLocation === "Russia") {
@@ -111,7 +108,6 @@ async function createMisterXMovementCard(text) {
     img.alt = ""
     if (text === "Bus") {
         img.src = "img/MxBus2.jpg"
-        //h1.style.color = "gray";
     } else if (text === "Boat") {
         img.src = "img/MxBoat.jpg"
     } else if (text === "Plane") {
@@ -140,17 +136,14 @@ async function randomMove() {
     console.log(randomInt)
     if (randomInt <= 5) {
         await updateMxLocation()
-        console.log("Mister X will use bus now...")
         await mxBusDestinations(misterLocation)
 
     } else if (randomInt > 5 && randomInt <= 9) {
         await updateMxLocation()
-        console.log("Mister X will use boat now...")
         await mxBoatDestinations(misterLocation)
 
     } else {
         await updateMxLocation()
-        console.log("Mister X will fly now...")
         await mxPlaneDestinations(misterLocation)
 
     }

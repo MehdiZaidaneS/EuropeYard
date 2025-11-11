@@ -6,6 +6,7 @@ planes = 1
 boats = 5
 bus = 10
 turns = 16
+money = 100
 
 
 def spawnpoint(): ##Setting current location of player with the method getOneCountry()
@@ -149,6 +150,9 @@ def moves():
         print("Travel is ONLY possible by bus, boat or plane. Please try again!!")
         moves()
 
+
+def getMoney():
+    return money
 
 
 

@@ -52,13 +52,15 @@
     flex-direction: column;
     background-color: rgba(30, 30, 30, 0.02);
     width: 60%;
-    height: calc(45% - 10px);
+    height: calc(35% - 10px);
     justify-self: center;
+    /*display: none;*/
 }
 
 #controller h1 {
     margin-top: 30px;
     margin-bottom: 35px;
+
 }
 
 #start-buttons {
@@ -90,8 +92,7 @@
 #movement-buttons {
     text-align: center;
     height: fit-content;
-    display: none;
-    margin-bottom: 100px;
+    margin-bottom: 70px;
 }
 
 #movement-buttons div {
@@ -144,7 +145,7 @@
 #map {
     margin-top: 10px;
     width: 90%;
-    height: 55%;
+    height: 65%;
     display: block;
     justify-self: center;
 
@@ -197,18 +198,25 @@ a {
     width: 100%;
     justify-content: center;
     align-items: center;
+    margin-bottom: 30px;
 }
+
 
 .player-info h1{
      margin-left: 10px;
+    margin-bottom: 0;
+    text-align: left;
+}
+
+.player-info div h2{
+    margin-top: 0;
+    font-size: 15px;
+    margin-left: 10px;
+    text-align: left;
 }
 
 .upperPart {
     margin-top: 20px;
-}
-
-
-.upperPart div {
     display: flex;
     width: 100%;
     justify-content: center;
@@ -218,7 +226,18 @@ a {
 
 .upperPart div h1 {
     margin-left: 10px;
+    margin-bottom: 0;
+    text-align: left;
 }
+
+.upperPart div h2{
+    margin-top: 0;
+    font-size: 15px;
+    margin-left: 10px;
+    text-align: left;
+}
+
+
 
 
 .card-list-mx {
@@ -300,6 +319,38 @@ a {
     text-align: left;
 }
 
+
+#exit{
+    font-size: 25px;
+    position: fixed;
+    bottom: 0;
+    margin-left: 15px;
+}
+
+#exit:hover{
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+
+.store{
+    background-color: rgba(30, 30, 30, 0.02);
+    width: 60%;
+    margin: 0 auto;
+    justify-content: center;
+    height: calc(35% - 10px);
+
+}
+
+
+#items{
+    margin: 0 auto;
+    justify-content: center;
+}
+
+#items div{
+    margin-right: 15px;
+}
 
 
 

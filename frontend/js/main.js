@@ -24,6 +24,9 @@ async function getLocation() {
 // Updates player location text in HTML.
 function updatePlayerLocationText(location) {
     const span = document.querySelector("#mylocation")
+    quiz.style.display = "block";
+    const h3 = document.querySelector("#question")
+    h3.innerHTML = "Which is the capital of " + location
     span.innerHTML = location
 }
 
@@ -183,6 +186,15 @@ function createDialog(message) {
 
 }
 
+async function getCurrentMoney(){
+    const response = await apiCall("money","");
+
+
+    const p = document.querySelector("#money")
+    console.log(response)
+    p.innerHTML = response["money"];
+}
+
 
 function createRandomMsg() {
 
@@ -228,8 +240,33 @@ for (let button of buttons) {
     })
 }
 
+const quizbuttons = document.getElementsByClassName("quizButtons")
+const quiz = document.querySelector(".quiz")
+for (let button of quizbuttons) {
+    button.addEventListener("click", async function (evt) {
+        evt.preventDefault();
+        const url = `https://restcountries.com/v3.1/name/${playerLocation}`
+        try {
+            const response = await fetch(url);
+            const json_data = await response.json();
+            const capital = json_data[0]["capital"][0]
+            if (button.innerHTML === capital) {
+                console.log("You guessed right")
+            } else {
+                console.log("You guessed wrong")
+                quiz.style.display= "none";
+            }
+        } catch (error) {
+            console.log("error.message")
+        }
+
+
+    })
+}
+
 
 const startButton = document.getElementById("start-game")
+const exitButton = document.getElementById("exit")
 const misterXBoard = document.querySelector(".misterX-board")
 const playerBoard = document.querySelector(".player-board");
 const startButtons = document.getElementById("start-buttons")
@@ -246,11 +283,15 @@ startButton.addEventListener("click", function (evt) {
     start()
 })
 
+exitButton.addEventListener("click", function (evt) {
+    window.location.reload();
+})
 
 // Starting function
 async function start() {
     await getLocation()
     await getMisterXLocation()
+    await getCurrentMoney()
 }
 
 

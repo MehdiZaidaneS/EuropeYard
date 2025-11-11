@@ -3,6 +3,7 @@ import json
 import database
 from flask_cors import CORS
 
+from backend import player
 
 app = Flask(__name__)
 CORS(app)
@@ -85,6 +86,15 @@ def getplanedestinations(location):
         json_response = json.dumps(response)
         http_response = Response(response=json_response, status=400, mimetype="application/json")
         return http_response
+
+
+@app.route("/money/")
+def getmoney():
+    try:
+        money = player.getMoney()
+        return {"money": money}
+    except ValueError:
+        return {"message": "Invalid number as addend", "status": 400}, 400
 
 
 

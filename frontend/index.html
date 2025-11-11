@@ -23,44 +23,48 @@
 
     <div class="player-board">
 
-            <div class="player-info">
-                <img id="player-pp" src="img/placeholderpp.png" width="60" height="60" alt="">
+        <div class="player-info">
+            <img id="player-pp" src="img/placeholderpp.png" width="60" height="60" alt="">
+            <div>
                 <h1>Player Name</h1>
+                <h2>Location: <span id="mylocation">Unknown</span></h2>
             </div>
+        </div>
 
-            <h1 id="victory"></h1>
-            <h2>Location: <span id="mylocation">Unknown</span></h2>
-            <h2>Choose your movement:</h2>
+        <h1 id="victory"></h1>
 
-            <div id="movement-buttons">
-                <div class="vehicle">
-                    <img src="img/Plane.jpg" alt="">
-                    <h1 class="text">Plane </h1>
-                    <p>x<span id="planeTickets">1</span></p>
-                </div>
-                <div class="vehicle">
-                    <img src="img/Boat.jpg" alt="">
-                    <h1 class="text">Boat</h1>
-                    <p>x<span id="boatTickets">5</span></p>
+        <h2>Choose your movement:</h2>
 
-                </div>
-                <div class="vehicle">
-                    <img src="img/Bus2.jpg" alt="">
-                    <h1 class="text">Bus</h1>
-                    <p>x<span id="busTickets">10</span></p>
-                </div>
+        <div id="movement-buttons">
+            <div class="vehicle">
+                <img src="img/Plane.jpg" alt="">
+                <h1 class="text">Plane </h1>
+                <p>x<span id="planeTickets">1</span></p>
             </div>
-
-
-            <div class="chat">
-                <div>
-                    <img src="img/logo.png"  width="30" height="30" alt="" style="margin-left: 7px">
-                    <p>Hey! I'd wish luck to you, but you're my rival. Catch me if you can!</p>
-                </div>
-
+            <div class="vehicle">
+                <img src="img/Boat.jpg" alt="">
+                <h1 class="text">Boat</h1>
+                <p>x<span id="boatTickets">5</span></p>
 
             </div>
+            <div class="vehicle">
+                <img src="img/Bus2.jpg" alt="">
+                <h1 class="text">Bus</h1>
+                <p>x<span id="busTickets">10</span></p>
+            </div>
+        </div>
 
+
+        <div class="chat">
+            <div>
+                <img src="img/logo.png" width="30" height="30" alt="" style="margin-left: 7px">
+                <p>Hey! I'd wish luck to you, but you're my rival. Catch me if you can!</p>
+            </div>
+        </div>
+
+        <div>
+            <p id="exit"> <- Leave the game</p>
+        </div>
 
 
     </div>
@@ -68,6 +72,7 @@
     <div class="map-container">
 
         <div id="map">
+
         </div>
 
         <div id="controller">
@@ -76,11 +81,43 @@
             <div id="start-buttons">
                 <a id="start-game">Start Game</a>
                 <a href="instructions.html">Instructions</a>
-                <a href="aboutpage.html">About Game</a>
-                <a href="highscore.html">Highest Scores</a>
+<!--               <a href="aboutpage.html">About Game</a>-->
+<!--                <a href="highscore.html">Highest Scores</a>-->
             </div>
 
             <p id="error-message">You cant write here!</p>
+        </div>
+
+        <div class="store">
+
+            <div style="display: flex; justify-content: center; align-items: center; width: 100%;">
+                <h1 style="flex-grow: 1; text-align: center;">Get Tickets</h1>
+                <p id="money" style="border: 1px solid white; padding: 5px">0e</p>
+            </div>
+
+
+            <div id="items" style="display: flex">
+                <div>
+                     <img src="img/Bus2.jpg" width="200" alt="">
+                    <button>Purchase</button>
+                </div>
+                <div>
+                     <img src="img/Bus2.jpg" width="200" alt="">
+                    <button>Purchase</button>
+                </div>
+                <div>
+                     <img src="img/Bus2.jpg" width="200" alt="">
+                    <button>Purchase</button>
+                </div>
+            </div>
+
+            <div class="quiz">
+                <h3 id="question">Which on is the capital of Spain?</h3>
+                <button class="quizButtons">Cataluna</button>
+                <button class="quizButtons">Barcelona</button>
+                <button class="quizButtons">Andorra</button>
+                <button class="quizButtons">Madrid</button>
+            </div>
         </div>
 
     </div>
@@ -89,12 +126,13 @@
     <div class="misterX-board">
 
         <div class="upperPart">
+
+            <img id="misterx-pp" src="img/logo.png" width="60" height="60" alt="">
             <div>
-                <img id="misterx-pp" src="img/logo.png" width="60" height="60" alt="">
                 <h1>MisterX</h1>
+                <h2>Location: <span id="misterXLocation">Unknown</span></h2>
             </div>
 
-            <h2>Location: <span id="misterXLocation">Unknown</span></h2>
         </div>
 
         <div class="card-list-mx">
